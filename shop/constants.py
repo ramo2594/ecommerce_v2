@@ -1,64 +1,69 @@
 """
-Costanti centralizzate per l'app shop.
+Centralized constants for shop app.
 
-In questo file mettiamo tutti i valori fissi che usiamo nel progetto.
-Così se devi cambiarli, li cambi in UN SOLO POSTO.
+This file contains all fixed values used in the project.
+Change them in ONE PLACE only.
 """
 
 # =========================================================
-# STATI DEGLI ORDINI
+# ORDER STATUSES
 # =========================================================
 
-# Costante 1: Ordine in sospeso (non ancora confermato)
+# Constant 1: Order pending (not yet confirmed)
 ORDER_STATUS_PENDING = 'pending'
 
-# Costante 2: Ordine confermato (pagamento ricevuto)
+# Constant 2: Order confirmed (payment received)
 ORDER_STATUS_CONFIRMED = 'confirmed'
 
-# Costante 3: Ordine spedito (in transito)
+# Constant 3: Order shipped (in transit)
 ORDER_STATUS_SHIPPED = 'shipped'
 
-# Costante 4: Ordine consegnato (arrivato al cliente)
+# Constant 4: Order delivered (arrived to customer)
 ORDER_STATUS_DELIVERED = 'delivered'
 
-# Costante 5: Ordine annullato (cliente ha cancellato)
+# Constant 5: Order cancelled (customer cancelled)
 ORDER_STATUS_CANCELLED = 'cancelled'
 
-# Lista di tuple per Django ChoiceField (mostra all'utente)
+# Tuple list for Django ChoiceField (display to user)
 ORDER_STATUS_CHOICES = [
-    (ORDER_STATUS_PENDING, 'In Sospeso'),
-    (ORDER_STATUS_CONFIRMED, 'Confermato'),
-    (ORDER_STATUS_SHIPPED, 'Spedito'),
-    (ORDER_STATUS_DELIVERED, 'Consegnato'),
-    (ORDER_STATUS_CANCELLED, 'Annullato'),
+    (ORDER_STATUS_PENDING, 'Pending'),
+    (ORDER_STATUS_CONFIRMED, 'Confirmed'),
+    (ORDER_STATUS_SHIPPED, 'Shipped'),
+    (ORDER_STATUS_DELIVERED, 'Delivered'),
+    (ORDER_STATUS_CANCELLED, 'Cancelled'),
 ]
 
-# ========================================================
-# VALIDAZIONE PREZZI
-# ========================================================
+# =========================================================
+# CATEGORY VALIDATION
+# =========================================================
+MAX_CATEGORY_NAME_LENGTH = 100
 
-# Prezzo minimo (non puoi vendere a 0€)
+# =========================================================
+# PRICE VALIDATION
+# =========================================================
+
+# Minimum price (cannot sell at 0€)
 MIN_PRICE = 0.01
 
-# Prezzo massimo (limite a 999.999,99€)
-MAX_PRICE = 999999,99
+# Maximum price (limit 999,999.99€)
+MAX_PRICE = 999999.99
 
-# ========================================================
-# VALIDAZIONE QUANTITÀ
-# ========================================================
+# =========================================================
+# QUANTITY VALIDATION
+# =========================================================
 
-# Quantità minima (non puoi ordinare 0 prodotti)
+# Minimum quantity (cannot order 0 products)
 MIN_QUANTITY = 1
 
-# Quantità massima (non puoi ordinare 1000+ prodotti)
+# Maximum quantity (cannot order 1000+ products)
 MAX_QUANTITY = 1000
 
-# ========================================================
-# VALIDAZIONE STOCK
-# ========================================================
+# =========================================================
+# STOCK VALIDATION
+# =========================================================
 
-# Stock minimo per considerare un prodotto "esaurito"
+# Minimum stock to consider product "out of stock"
 MIN_STOCK = 0
 
-# Stock massimo (limite per il database)
+# Maximum stock (database limit)
 MAX_STOCK = 100000
