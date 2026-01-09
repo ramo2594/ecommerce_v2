@@ -33,7 +33,7 @@ class Category(models.Model):
     is_active = models.BooleanField(
         default=True,
         verbose_name=_("Active"),
-        help_text=("Whether products in this category are available")
+        help_text=_("Whether products in this category are available")
     )
 
     updated_at = models.DateTimeField(

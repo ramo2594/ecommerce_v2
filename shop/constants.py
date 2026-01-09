@@ -67,3 +67,8 @@ MIN_STOCK = 0
 
 # Maximum stock (database limit)
 MAX_STOCK = 100000
+
+# =========================================================
+# PRODUCT IMAGE UPLOAD PATH
+# =========================================================
+PRODUCT_IMAGE_UPLOAD_PATH = 'products/%Y/%m/'
