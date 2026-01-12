@@ -7,7 +7,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from ..constants import (
     MIN_PRICE, MAX_PRICE,
     MIN_STOCK, MAX_STOCK,
-    MAX_QUANTITY
+    MAX_QUANTITY,
+    PRODUCT_IMAGE_UPLOAD_PATH
 )
 
 class Product(models.Model):
