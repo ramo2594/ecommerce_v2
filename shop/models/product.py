@@ -3,6 +3,7 @@ Product Model: Represents sellable items in the e-commerce platform.
 """
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 from ..constants import (
     MIN_PRICE, MAX_PRICE,
@@ -19,6 +20,7 @@ class Product(models.Model):
     
     Attributes:
         name (str): Unique product name/identifier
+        slug (str): URL-friendly identifier (auto-generated from name)
         category (ForeignKey): Link to product category
         price (Decimal): Price in EUR with 2 decimal places
         description (str): Detailed product description
@@ -35,6 +37,15 @@ class Product(models.Model):
         db_index=True,
         verbose_name=_("Product Name"),
         help_text=_("Ex: iPhone 17 Pro, T-shirt Cotton White")
+    )
+
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+        db_index=True,
+        verbose_name=_("Slug"),
+        default='',
+        help_text=_("URL-friendly identifier (auto-generated)")
     )
 
     category = models.ForeignKey(
@@ -56,7 +67,7 @@ class Product(models.Model):
 
     description = models.TextField(
         verbose_name=_("Description"),
-        help_text=_("Detailed product description for costumers")
+        help_text=_("Detailed product description for customers")
     )
 
     image = models.ImageField(
@@ -64,7 +75,7 @@ class Product(models.Model):
         blank=True,
         null=True,
         verbose_name=_("Product Image"),
-        help_text=_("Optional product image (JPG/PMG)")
+        help_text=_("Optional product image (JPG/PNG)")
     )
 
     is_available = models.BooleanField(
@@ -99,12 +110,24 @@ class Product(models.Model):
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['category', 'is_available']),
+            models.Index(fields=['slug']),
             models.Index(fields=['-created_at'])
         ]
+
+    def save(self, *args, **kwargs):
+        """Auto-generate slug from name if not provided."""
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """String rappresentation: product name."""
         return self.name
+    
+    def get_absolute_url(self):
+        """Return the URL for this product detail page."""
+        from django.urls import reverse
+        return reverse('shop:product-detail', kwargs={'slug': self.slug})
     
     def is_in_stock(self) -> bool:
         """
