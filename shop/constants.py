@@ -72,3 +72,9 @@ MAX_STOCK = 100000
 # PRODUCT IMAGE UPLOAD PATH
 # =========================================================
 PRODUCT_IMAGE_UPLOAD_PATH = 'products/%Y/%m/'
+
+# =========================================================
+# CUSTOMER VALIDATION
+# =========================================================
+MAX_CUSTOMER_NAME_LENGTH = 100
+MAX_CUSTOMER_EMAIL_LENGTH = 255

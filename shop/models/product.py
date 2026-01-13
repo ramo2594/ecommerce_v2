@@ -158,3 +158,8 @@ class Product(models.Model):
             str: Formatted price (ex: "29.99 EUR")
         """
         return f"{self.price:.2f} EUR"
+    
+    def increase_stock(self, quantity):
+        """Increase product stock."""
+        self.stock += quantity
+        self.save(update_fields=['stock'])
