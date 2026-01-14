@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Customer, Order
+from .models import Category, Product, Customer, Order, OrderItem
 from django.utils.translation import gettext_lazy as _
 
 # Register your models here.
@@ -105,3 +105,15 @@ class OrderAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['order', 'product', 'quantity', 'unit_price', 'get_final_price']
+    list_filter = ['order__status', 'created_at']
+    search_fields = ['order__order_number', 'product__name']
+    
+    readonly_fields = ['unit_price', 'created_at', 'updated_at']
+    
+    def get_final_price(self, obj):
+        return f"€{obj.get_final_price():.2f}"
+    get_final_price.short_description = 'Total'
