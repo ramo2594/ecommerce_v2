@@ -26,7 +26,7 @@ class OrderItem(models.Model):
         verbose_name=_("Product")
     )
 
-    quantity = models.PositiveBigIntegerField(
+    quantity = models.PositiveIntegerField(
         validators=[
             MinValueValidator(MIN_QUANTITY),
             MaxValueValidator(MAX_QUANTITY)
