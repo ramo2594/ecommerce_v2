@@ -4,7 +4,7 @@ from django.views.generic import FormView, TemplateView
 from django.contrib import messages
 from shop.models import Order, OrderItem, Customer
 from shop.services.cart_service import CartService
-from .forms import CheckoutForm
+from shop.forms import CheckoutForm
 
 
 class CheckoutView(FormView):

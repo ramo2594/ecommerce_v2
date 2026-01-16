@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}Carrello - E-Commerce{% endblock %}
+{% block title %}Shopping Cart - E-Commerce{% endblock %}
 
 {% block content %}
 <div class="container my-4">
     <h1 class="mb-4">
         <i class="fas fa-shopping-cart me-2 text-primary"></i>
-        Il Tuo Carrello
+        Your Cart
     </h1>
     
     {% if cart_items %}
@@ -14,11 +14,11 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th>Prodotto</th>
-                        <th>Prezzo</th>
-                        <th class="text-center">Quantità</th>
-                        <th class="text-right">Subtotale</th>
-                        <th class="text-center">Azioni</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-right">Subtotal</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,29 +59,29 @@
             <div class="col-md-8">
                 <a href="{% url 'shop:product-list' %}" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left me-2"></i>
-                    Continua lo Shopping
+                    Continue Shopping
                 </a>
             </div>
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Riepilogo Ordine</h5>
+                        <h5 class="card-title">Order Summary</h5>
                         <hr>
                         <div class="d-flex justify-content-between mb-2">
-                            <span>Subtotale:</span>
+                            <span>Subtotal:</span>
                             <strong>€ {{ cart_total|floatformat:2 }}</strong>
                         </div>
                         <div class="d-flex justify-content-between mb-3">
-                            <span>Spedizione:</span>
-                            <strong>Gratuita</strong>
+                            <span>Shipping:</span>
+                            <strong>Free</strong>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Totale:</h6>
+                            <h6 class="mb-0">Total:</h6>
                             <h6 class="mb-0 text-success">€ {{ cart_total|floatformat:2 }}</h6>
                         </div>
                         <a href="{% url 'shop:checkout' %}" class="btn btn-success btn-lg w-100">
-                            Procedi al Checkout
+                            Proceed to Checkout
                         </a>
                     </div>
                 </div>
@@ -91,11 +91,11 @@
     {% else %}
         <div class="alert alert-info text-center py-5">
             <i class="fas fa-inbox display-4 mb-3"></i>
-            <h4>Il tuo carrello è vuoto</h4>
-            <p class="text-muted mb-4">Aggiungi dei prodotti per iniziare lo shopping!</p>
+            <h4>Your cart is empty</h4>
+            <p class="text-muted mb-4">Add some products to start shopping!</p>
             <a href="{% url 'shop:product-list' %}" class="btn btn-primary btn-lg">
                 <i class="fas fa-shopping-bag me-2"></i>
-                Vai ai Prodotti
+                Go to Products
             </a>
         </div>
     {% endif %}

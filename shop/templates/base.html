@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}E-Commerce Django{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
     <!-- NAVBAR -->
@@ -23,7 +25,7 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'shop:product-list' %}">
-                            <i class="fas fa-th-large me-1"></i>Prodotti
+                            <i class="fas fa-th-large me-1"></i>Products
                         </a>
                     </li>
                 </ul>
@@ -31,7 +33,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'shop:cart' %}">
-                            <i class="fas fa-shopping-bag"></i> Carrello
+                            <i class="fas fa-shopping-bag"></i> Shopping Cart
                             <span class="badge bg-danger rounded-pill ms-1" id="cart-count">0</span>
                         </a>
                     </li>
@@ -42,20 +44,20 @@
                                 <i class="fas fa-user me-1"></i>{{ user.username }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'shop:order-list' %}">I miei ordini</a></li>
+                                <li><a class="dropdown-item" href="{% url 'shop:order-list' %}">My Orders</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/admin/">Logout (Admin per ora)</a></li>
+                                <li><a class="dropdown-item" href="{% url 'shop:logout' %}">Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/">
-                                <i class="fas fa-sign-in-alt"></i> Login (Admin per ora)
+                            <a class="nav-link" href="{% url 'shop:login' %}">
+                                <i class="fas fa-sign-in-alt"></i> Login
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">
-                                <i class="fas fa-user-plus"></i> Registrati
+                            <a class="nav-link" href="{% url 'shop:register' %}">
+                                <i class="fas fa-user-plus"></i> Register
                             </a>
                         </li>
                     {% endif %}
@@ -63,6 +65,7 @@
             </div>
         </div>
     </nav>
+
 
     <!-- MESSAGES -->
     {% if messages %}
@@ -76,21 +79,67 @@
         </div>
     {% endif %}
 
+
     <!-- MAIN CONTENT -->
     <main class="container my-4 min-vh-100">
         {% block content %}
         {% endblock %}
     </main>
 
+
     <!-- FOOTER -->
     <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
-            <p class="mb-0">&copy; 2026 E-Commerce Django. Tutti i diritti riservati.</p>
+            <p class="mb-0">&copy; 2026 E-Commerce Django. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- BOOTSTRAP JS -->
+
+        <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- UPDATE CART COUNT AND MESSAGES -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-dismiss messages after 5 seconds
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            if (!alert.classList.contains('alert-danger')) {
+                setTimeout(() => {
+                    alert.style.transition = 'opacity 0.5s ease';
+                    alert.style.opacity = '0';
+                    setTimeout(() => alert.remove(), 500);
+                }, 5000);
+            }
+        });
+        
+        // Update cart count on page load
+        updateCartCount();
+    });
+    
+    function updateCartCount() {
+        fetch('{% url "shop:cart-api-count" %}')
+            .then(response => response.json())
+            .then(data => {
+                const cartCountBadge = document.getElementById('cart-count');
+                cartCountBadge.textContent = data.count;
+                
+                // Hide badge if count is 0
+                if (data.count === 0) {
+                    cartCountBadge.style.display = 'none';
+                } else {
+                    cartCountBadge.style.display = 'inline-block';
+                }
+            });
+    }
+    
+    // Update cart count after form submission
+    document.addEventListener('submit', function(e) {
+        if (e.target.id === 'add-to-cart-form') {
+            setTimeout(updateCartCount, 500);
+        }
+    });
+    </script>
     
     {% block extra_js %}{% endblock %}
 </body>
