@@ -7,7 +7,7 @@ from ...models import Product, Category
 class ProductListView(ListView):
     """Display all available products with filtering and search."""
     model = Product
-    template_name = 'shop/product_list.html'
+    template_name = 'products/product_list.html'
     context_object_name = 'products'
     paginate_by = 12
     
@@ -41,7 +41,7 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     """Display single product details with related products."""
     model = Product
-    template_name = 'shop/product_detail.html'
+    template_name = 'products/product_detail.html'
     context_object_name = 'product'
     slug_field = 'slug'
     

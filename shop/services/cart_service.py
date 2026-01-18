@@ -8,7 +8,7 @@ from ..models import Product
 
 
 class CartService:
-    """Service for managing shopping cart operations."""
+    """Session-based shopping cart manager."""
     
     CART_SESSION_KEY = 'cart'
     

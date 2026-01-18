@@ -1,0 +1,32 @@
+/* Products grid - 4 columns responsive */
+.products-grid {
+  --gap: var(--space-md);
+}
+
+/* Product card hover animation */
+.card-product {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-product:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Stock status badge */
+.badge-stock {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.product-card {
+  animation: fadeInUp 0.6s ease forwards;
+}

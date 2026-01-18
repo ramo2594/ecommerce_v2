@@ -1,0 +1,13 @@
+{% if product.is_in_stock %}
+    <form method="post" action="{% url 'shop:add-to-cart' product.id %}" id="add-to-cart-form" class="mb-3">
+        {% csrf_token %}
+        <input type="hidden" name="quantity" id="quantity-input" value="1">
+        <button type="submit" class="btn btn-primary btn-lg w-100 shadow-lg">
+            <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+        </button>
+    </form>
+{% else %}
+    <button class="btn btn-secondary btn-lg w-100 disabled mb-3" disabled>
+        <i class="fas fa-ban me-2"></i>Not Available
+    </button>
+{% endif %}

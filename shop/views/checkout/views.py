@@ -9,7 +9,7 @@ from shop.forms import CheckoutForm
 
 class CheckoutView(FormView):
     """Checkout page with customer form."""
-    template_name = 'shop/checkout.html'
+    template_name = 'checkout/checkout.html'
     form_class = CheckoutForm
     success_url = '/'
     
@@ -28,7 +28,7 @@ class CheckoutView(FormView):
         cart_items = cart_service.get_cart_items()
         
         if not cart_items:
-            messages.error(self.request, 'Il carrello è vuoto!')
+            messages.error(self.request, 'Your cart is empty!')
             return redirect('shop:cart')
         
         # Create customer
@@ -65,13 +65,13 @@ class CheckoutView(FormView):
         # Clear cart
         cart_service.clear_cart()
         
-        messages.success(self.request, 'Ordine creato con successo!')
+        messages.success(self.request, 'Order created successfully!')
         return redirect('shop:order-confirmation', order_number=order.order_number)
 
 
 class OrderConfirmationView(TemplateView):
     """Order confirmation page."""
-    template_name = 'shop/order_confirmation.html'
+    template_name = 'checkout/order_confirmation.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,8 +79,8 @@ class OrderConfirmationView(TemplateView):
         try:
             order = Order.objects.get(order_number=kwargs['order_number'])
             context['order'] = order
-            context['items'] = order.orderitem_set.all()
+            context['items'] = order.items.select_related('product').all()
         except Order.DoesNotExist:
-            context['error'] = 'Ordine non trovato'
+            context['error'] = 'Order not found'
         
         return context

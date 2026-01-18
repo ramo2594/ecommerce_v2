@@ -1,0 +1,44 @@
+<div class="table-responsive **cart-table**">
+    <table class="table table-hover **cart-tbody**">
+        <thead class="table-dark">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-right">Subtotal</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr class="**cart-row**">
+                <td>
+                    <a href="{% url 'shop:product-detail' item.product.slug %}" class="text-decoration-none">
+                        {{ item.product.name }}
+                    </a>
+                </td>
+                <td>€ {{ item.price|floatformat:2 }}</td>
+                <td class="text-center">
+                    <form method="post" action="{% url 'shop:update-cart' item.product.id %}" class="d-flex justify-content-center">
+                        {% csrf_token %}
+                        <button type="button" class="**qty-btn** btn btn-outline-secondary me-1">-</button>
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" 
+                               class="form-control form-control-sm mx-1" style="width: 60px;">
+                        <button type="button" class="**qty-btn** btn btn-outline-secondary ms-1">+</button>
+                        <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="fas fa-sync-alt"></i></button>
+                    </form>
+                </td>
+                <td class="text-right fw-bold">€ {{ item.subtotal|floatformat:2 }}</td>
+                <td class="text-center">
+                    <form method="post" action="{% url 'shop:remove-from-cart' item.product.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger **remove-btn**">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="**cart-container**">
+    <h1 class="mb-4">
+        <i class="fas fa-shopping-cart me-2 text-primary"></i>Your Cart
+    </h1>
+
+    {% if cart_items %}
+        {% include "cart/includes/cart_items_table.html" %}
+        
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <a href="{% url 'shop:product-list' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                </a>
+            </div>
+            <div class="col-md-4">
+                {% include "cart/includes/cart_summary.html" %}
+            </div>
+        </div>
+    {% else %}
+        {% include "cart/includes/empty_cart.html" %}
+    {% endif %}
+</div>
+{% endblock %}

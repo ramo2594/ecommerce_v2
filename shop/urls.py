@@ -15,6 +15,7 @@ from .views import (
     RegisterView,
     LoginView,
     logout_view,
+    UserOrdersListView,
 )
 from django.views.generic import TemplateView
 
@@ -26,7 +27,7 @@ class ComingSoonView(TemplateView):
 
 urlpatterns = [
     # Products
-    path('products/', ProductListView.as_view(), name='product-list'),
+    path('', ProductListView.as_view(), name='product-list'),
     path('products/<slug:slug>/', ProductDetailView.as_view(), name='product-detail'),
     
     # Cart
@@ -39,7 +40,7 @@ urlpatterns = [
     # Checkout & Orders
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('order/<str:order_number>/', OrderConfirmationView.as_view(), name='order-confirmation'),
-    path('orders/', ComingSoonView.as_view(), name='order-list'),
+    path('orders/', UserOrdersListView.as_view(), name='user-orders'),
 
     # Auth
     path('register/', RegisterView.as_view(), name='register'),

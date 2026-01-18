@@ -9,7 +9,7 @@ from django.http import JsonResponse
 
 class CartView(TemplateView):
     """Display shopping cart with items and total."""
-    template_name = 'shop/cart.html'
+    template_name = 'cart/cart.html'
     
     def get_context_data(self, **kwargs):
         """Add cart data to context."""

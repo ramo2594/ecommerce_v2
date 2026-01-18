@@ -1,0 +1,22 @@
+<div class="col-lg-6">
+    <div class="position-relative mb-4">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid rounded shadow-lg w-100" alt="{{ product.name }}" style="max-height: 550px; object-fit: cover;">
+        {% else %}
+            <div class="bg-light rounded shadow-lg d-flex align-items-center justify-content-center w-100" style="height: 550px;">
+                <div class="text-center text-secondary">
+                    <i class="fas fa-image fa-5x mb-3 opacity-50"></i>
+                    <p class="fs-5 fw-semibold">Image Not Available</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="mb-3">
+        {% if product.is_in_stock %}
+            <span class="badge bg-success fs-6 px-3 py-2"><i class="fas fa-check-circle me-2"></i>In Stock ({{ product.stock }} units)</span>
+        {% else %}
+            <span class="badge bg-danger fs-6 px-3 py-2"><i class="fas fa-times-circle me-2"></i>Out of Stock</span>
+        {% endif %}
+    </div>
+</div>

@@ -1,21 +1,20 @@
 """Checkout forms."""
 from django import forms
 
-
 class CheckoutForm(forms.Form):
     """Checkout form for customer data."""
     first_name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Nome'
+            'placeholder': 'First Name'
         })
     )
     last_name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Cognome'
+            'placeholder': 'Last Name'
         })
     )
     email = forms.EmailField(
@@ -28,28 +27,28 @@ class CheckoutForm(forms.Form):
         max_length=20,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Telefono'
+            'placeholder': 'Phone'
         })
     )
     address = forms.CharField(
         max_length=200,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Indirizzo'
+            'placeholder': 'Address'
         })
     )
     postal_code = forms.CharField(
         max_length=10,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'CAP'
+            'placeholder': 'Postal Code'
         })
     )
     city = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Città'
+            'placeholder': 'City'
         })
     )
     country = forms.CharField(
@@ -57,7 +56,7 @@ class CheckoutForm(forms.Form):
         initial='IT',
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Paese'
+            'placeholder': 'Country'
         })
     )
     notes = forms.CharField(
@@ -65,7 +64,7 @@ class CheckoutForm(forms.Form):
         required=False,
         widget=forms.Textarea(attrs={
             'class': 'form-control',
-            'placeholder': 'Note ordine (opzionale)',
+            'placeholder': 'Order notes (optional)',
             'rows': 3
         })
     )

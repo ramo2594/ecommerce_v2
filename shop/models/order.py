@@ -16,7 +16,7 @@ class Order(models.Model):
     """
 
     user = models.ForeignKey(
-        User,
+        'auth.User',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -128,3 +128,9 @@ class Order(models.Model):
             item.product.increase_stock(item.quantity)
 
         return True
+    
+@property
+def items(self):
+    """Returns order items with products prefetch."""
+    return self.orderitem_set.select_related('product').all()
+

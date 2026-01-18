@@ -1,0 +1,15 @@
+/* Orders page - Card hover effects */
+.order-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.order-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Status badges */
+.status-pending { background: #fbbf24 !important; color: #92400e !important; }
+.status-confirmed { background: #10b981 !important; color: white !important; }
+.status-shipped { background: #3b82f6 !important; color: white !important; }
+.status-delivered { background: #059669 !important; color: white !important; }

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - E-Commerce{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Payment method toggle (if exists)
+    document.querySelectorAll('.payment-method').forEach(method => {
+        method.addEventListener('click', function() {
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<!-- Progress header (optional) -->
+<div class="row g-3 mb-5 checkout-steps">
+    <div class="col-auto step-item active">
+        <i class="fas fa-shopping-cart"></i> Cart
+    </div>
+    <div class="col step-item active">
+        <i class="fas fa-user"></i> Shipping
+    </div>
+    <div class="col step-item">
+        <i class="fas fa-credit-card"></i> Payment
+    </div>
+</div>
+
+<div class="row g-4 **checkout-container**">
+    <div class="col-lg-8">
+        {% include "checkout/includes/checkout_form.html" %}
+    </div>
+    
+    <div class="col-lg-4">
+        {% include "checkout/includes/order_summary.html" %}
+    </div>
+</div>
+{% endblock %}

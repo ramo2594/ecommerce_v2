@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="row g-5 align-items-start">
+    {% include "products/includes/product_image.html" %}
+    {% include "products/includes/product_info.html" %}
+</div>
+{% include "products/includes/related_products.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const qtyInput = document.getElementById('qty-input');
+    const quantityInput = document.getElementById('quantity-input');
+    const qtyMinus = document.getElementById('qty-minus');
+    const qtyPlus = document.getElementById('qty-plus');
+    const shareBtn = document.getElementById('share-btn');
+    const maxQty = parseInt(qtyInput.max) || 999;
+    
+    const updateQuantity = () => {
+        const value = Math.max(1, Math.min(parseInt(qtyInput.value) || 1, maxQty));
+        qtyInput.value = value;
+        quantityInput.value = value;
+    };
+    
+    qtyMinus.addEventListener('click', () => {
+        qtyInput.value = Math.max(1, parseInt(qtyInput.value) - 1);
+        updateQuantity();
+    });
+    
+    qtyPlus.addEventListener('click', () => {
+        qtyInput.value = Math.min(maxQty, parseInt(qtyInput.value) + 1);
+        updateQuantity();
+    });
+    
+    qtyInput.addEventListener('change', updateQuantity);
+    
+    shareBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const original = shareBtn.innerHTML;
+            shareBtn.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+            shareBtn.classList.add('btn-success');
+            shareBtn.classList.remove('btn-outline-secondary');
+            setTimeout(() => {
+                shareBtn.innerHTML = original;
+                shareBtn.classList.remove('btn-success');
+                shareBtn.classList.add('btn-outline-secondary');
+            }, 2000);
+        });
+    });
+});
+</script>
+{% endblock %}

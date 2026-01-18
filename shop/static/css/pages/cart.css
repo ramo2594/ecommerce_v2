@@ -1,0 +1,55 @@
+/* Cart layout */
+.cart-container {
+  min-height: 60vh;
+}
+
+.cart-table {
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Sticky totals sidebar */
+.cart-summary {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+/* Quantity controls */
+.qty-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Remove item animation */
+.cart-row {
+  transition: all 0.4s ease;
+}
+
+.cart-row.removing {
+  opacity: 0.5;
+  transform: translateX(20px);
+}
+
+/* Empty cart */
+.empty-cart {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-cart i {
+  font-size: 6rem;
+  opacity: 0.1;
+  margin-bottom: 1rem;
+}

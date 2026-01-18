@@ -83,7 +83,7 @@ class Customer(models.Model):
     
     def __str__(self):
         """String representation: customer full name."""
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}".strip()
     
     def get_full_name(self) -> str:
         """

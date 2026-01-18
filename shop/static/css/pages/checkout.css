@@ -1,0 +1,57 @@
+/* Checkout progress */
+.checkout-steps {
+  counter-reset: step;
+}
+
+.step-item::before {
+  counter-increment: step;
+  content: counter(step);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.step-item.active::before {
+  background: var(--success);
+  color: white;
+}
+
+/* Form styling */
+.checkout-form .form-control,
+.checkout-form .form-select {
+  border-radius: var(--radius-md);
+  border: 2px solid #e2e8f0;
+  transition: all 0.2s ease;
+  padding: 0.875rem 1rem;
+}
+
+.checkout-form .form-control:focus,
+.checkout-form .form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+}
+
+/* Sticky order summary */
+.checkout-summary {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+/* Payment buttons */
+.payment-method {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.payment-method:hover,
+.payment-method.active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
