@@ -1,10 +1,10 @@
 """
 User orders views - Enterprise modular structure
 """
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from ...models.order import Order
+from shop.models import Order
 
 class UserOrdersListView(LoginRequiredMixin, ListView):
     """
@@ -23,4 +23,23 @@ class UserOrdersListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['total_orders'] = self.get_queryset().count()
+        return context
+
+class OrderDetailView(LoginRequiredMixin, DetailView):
+    model = Order
+    template_name = 'shop/order_detail.html'  # Reuse
+    context_object_name = 'order'
+    pk_url_kwarg = 'order_number'
+    
+    def get_object(self, queryset=None):
+        order_number = self.kwargs['order_number']
+        return get_object_or_404(
+            Order, 
+            order_number=order_number, 
+            user=self.request.user
+        )
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['items'] = self.object.items.all()
         return context

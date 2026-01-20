@@ -16,6 +16,7 @@ from .views import (
     LoginView,
     logout_view,
     UserOrdersListView,
+    OrderDetailView,
 )
 from django.views.generic import TemplateView
 
@@ -41,6 +42,7 @@ urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('order/<str:order_number>/', OrderConfirmationView.as_view(), name='order-confirmation'),
     path('orders/', UserOrdersListView.as_view(), name='user-orders'),
+    path('orders/<str:order_number>/', OrderDetailView.as_view(), name='order-detail'),
 
     # Auth
     path('register/', RegisterView.as_view(), name='register'),

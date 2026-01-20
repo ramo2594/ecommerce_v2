@@ -1,3 +1,3 @@
-from .views import UserOrdersListView
+from .views import UserOrdersListView, OrderDetailView
 
-__all__ = ['UserOrdersListView']
+__all__ = ['UserOrdersListView, OrderDetailView']

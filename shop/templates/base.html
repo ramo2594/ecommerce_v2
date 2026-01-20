@@ -7,26 +7,62 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     {% load static %}
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    
+    <!-- HERO FONTS + FAVICON -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    
+    <!-- INLINE TYPOGRAPHY OVERRIDE -->
+    <style>
+        body { 
+            font-family: 'Poppins', 'Inter', sans-serif; 
+        }
+    </style>
+    
+    <!-- MAIN STYLES -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+<body style="background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%); min-height: 100vh;">
+
+    <!-- NAVBAR + THEME TOGGLE -->
     {% include "components/navbar.html" %}
+    
+    <!-- MESSAGES -->
     {% include "components/messages.html" %}
 
+    <!-- MAIN CONTENT -->
     <main class="container my-5 min-vh-100">
         {% block content %}{% endblock %}
     </main>
 
+    <!-- FOOTER -->
     {% include "components/footer.html" %}
 
-    <!-- Bootstrap JS -->
+    <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Global JavaScript -->
+    <!-- GLOBAL JS + DARK MODE -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Auto-dismiss success/info alerts
+        // DARK MODE TOGGLE (navbar button)
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) {
+            // Load saved theme
+            if (localStorage.theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+            
+            toggle.onclick = () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.theme = isDark ? 'dark' : 'light';
+                // Icon dinamica
+                icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            };
+        }
+
+        // AUTO-DISMISS ALERTS
         const alerts = document.querySelectorAll('.alert:not(.alert-danger)');
         alerts.forEach(alert => {
             setTimeout(() => {
@@ -36,7 +72,7 @@
             }, 5000);
         });
         
-        // Update cart badge count
+        // LIVE CART BADGE
         updateCartCount();
     });
     
@@ -50,10 +86,10 @@
                     badge.style.display = data.count === 0 ? 'none' : 'inline-block';
                 }
             })
-            .catch(() => {});  // Silent fail
+            .catch(() => {}); // Silent fail
     }
     
-    // Update cart after add-to-cart form submit
+    // CART UPDATE AFTER FORM SUBMIT
     document.addEventListener('submit', function(e) {
         if (e.target.matches('#add-to-cart-form, [name*="cart"]')) {
             setTimeout(updateCartCount, 500);
@@ -61,7 +97,7 @@
     });
     </script>
     
-    <!-- Page-specific JavaScript -->
+    <!-- PAGE-SPECIFIC JS -->
     {% block extra_js %}{% endblock %}
 </body>
 </html>

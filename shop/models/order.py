@@ -102,9 +102,13 @@ class Order(models.Model):
         from django.urls import reverse
         return reverse('shop:order-detail', kwargs={'order_number': self.order_number})
     
-    def get_total_price(self):
+    def get_total(self):
         """Calculate total order price."""
         return sum(item.get_final_price() for item in self.items.all())
+    
+    def get_total_price(self):
+        """Alias total price."""
+        return self.get_total()
     
     def get_status_display(self):
         """Return human-readable status."""
@@ -133,4 +137,3 @@ class Order(models.Model):
 def items(self):
     """Returns order items with products prefetch."""
     return self.orderitem_set.select_related('product').all()
-

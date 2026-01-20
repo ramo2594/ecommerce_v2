@@ -1,56 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-lg" style="background: var(--gradient-primary); box-shadow: var(--shadow-neum);">
     <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="{% url 'shop:product-list' %}">
-            <i class="fas fa-shopping-cart me-2"></i>E-Commerce
+        <!-- BRAND HERO -->
+        <a class="navbar-brand fw-bold fs-3 lh-1" href="{% url 'shop:product-list' %}">
+            <i class="fas fa-shopping-cart me-2 text-white"></i>
+            <span>E-Commerce</span>
         </a>
         
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <!-- TOGGLER -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         
+        <!-- NAVBAR CONTENT -->
         <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- LEFT LINKS -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'shop:product-list' %}">
+                    <a class="nav-link px-3 py-2 rounded-3 transition-all" href="{% url 'shop:product-list' %}">
                         <i class="fas fa-th-large me-1"></i>Products
                     </a>
                 </li>
             </ul>
             
-            <ul class="navbar-nav">
+            <!-- RIGHT LINKS + TOGGLE -->
+            <ul class="navbar-nav gap-2">
+                <!-- CART -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'shop:cart' %}">
+                    <a class="nav-link px-3 py-2 rounded-3 transition-all position-relative" href="{% url 'shop:cart' %}">
                         <i class="fas fa-shopping-bag"></i> Cart
-                        <span class="badge bg-danger rounded-pill ms-1" id="cart-count">0</span>
+                        <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle" id="cart-count">0</span>
                     </a>
                 </li>
                 
+                <!-- THEME TOGGLE -->
+                <li class="nav-item">
+                    <button id="theme-toggle" class="btn btn-outline-light btn-sm px-2 rounded-3 transition-all" title="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+                
+                <!-- USER DROPDOWN -->
                 {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user me-1"></i>{{ user.username }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'shop:user-orders' %}">
-                                <i class="fas fa-boxes me-2"></i>My Orders
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'shop:logout' %}">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout
-                            </a></li>
-                        </ul>
-                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle px-3 py-2 rounded-3 transition-all" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>{{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg">
+                        <li><a class="dropdown-item px-3 py-2" href="{% url 'shop:user-orders' %}">
+                            <i class="fas fa-boxes me-2 text-primary"></i>My Orders
+                        </a></li>
+                        <li><hr class="dropdown-divider mx-2"></li>
+                        <li><a class="dropdown-item px-3 py-2 text-danger" href="{% url 'shop:logout' %}">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a></li>
+                    </ul>
+                </li>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop:login' %}">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop:register' %}">
-                            <i class="fas fa-user-plus"></i> Register
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-2 rounded-3 me-2 transition-all" href="{% url 'shop:login' %}">
+                        <i class="fas fa-sign-in-alt me-1"></i>Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-2 rounded-3 transition-all" href="{% url 'shop:register' %}">
+                        <i class="fas fa-user-plus me-1"></i>Register
+                    </a>
+                </li>
                 {% endif %}
             </ul>
         </div>
