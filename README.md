@@ -177,7 +177,7 @@ Each model has dedicated admin configuration:
 - Custom list displays for each model
 
 ### Business Logic (`services/`)
-- `services/cart.py` → CartService with add, remove, update, get_total, clear
+- `services/cart_service.py` → CartService with add, remove, update, get_total, clear
 
 ### Modular Styling (`static/css/`)
 - `components/` → buttons, cards
