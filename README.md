@@ -121,6 +121,30 @@ ecommerce_v2/
 └── requirements.txt
 ```
 
+---
+## Screenshot dell’applicazione
+
+### Products
+![Products](screenshots/products.png)
+
+### Product
+![Product](screenshots/product.png)
+
+### Login
+![Login](screenshots/login.png)
+
+### Register
+![Register](screenshots/register.png)
+
+### Cart
+![Cart](screenshots/cart.png)
+
+### Checkout
+![Checkout](screenshots/checkout.png)
+
+### Order Confirmed
+![Order-Confirmed](screenshots/order-confirmed.png)
+
 ## Quick Setup
 
 ```bash
