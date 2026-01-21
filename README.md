@@ -122,7 +122,7 @@ ecommerce_v2/
 ```
 
 ---
-## Screenshot dell’applicazione
+## Screenshots 
 
 ### Products
 ![Products](screenshots/products.png)
